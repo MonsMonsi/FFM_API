@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\VS_Projects\Web-Projects\FFMWeb\FFMWeb.Core.API\FFMWeb.Core\FFMWeb.Core.API.xml</DocumentationFile>
+    <NoWarn>1701;1702;1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.11" />
+    <PackageReference Include="NSwag.Annotations" Version="13.13.2" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.13.2" />
+    <PackageReference Include="NSwag.Core" Version="13.13.2" />
+    <PackageReference Include="NSwag.Generation" Version="13.13.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FFMWebCore.Data\FFMWebCore.Data.csproj" />
+    <ProjectReference Include="..\FFMWebCore.Domain\FFMWebCore.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

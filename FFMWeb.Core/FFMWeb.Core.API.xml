@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FFMWeb.Core.API</name>
+    </assembly>
+    <members>
+        <member name="M:FFMWeb.Core.API.Controller.ShoppingListController.GetAllItems">
+            <summary>
+            Gets all items
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:FFMWeb.Core.API.Controller.ShoppingListController.AddItem(System.String)">
+            <summary>
+            Adds an item
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FFMWeb.Core.API.Controller.ShoppingListController.RemoveItem(System.String)">
+            <summary>
+            Deletes an entry
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FFMWeb.Core.API.Controller.ShoppingListController.ClearAll">
+            <summary>
+            Deletes All entries
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -98,6 +98,11 @@ namespace FFMWeb.Core.API
              
             app.UseOpenApi();
 
+            //app.Use(async (ctx, next) =>
+            //{
+
+            //});
+            
             app.UseSwaggerUi3(cfg =>
             {
                 cfg.Path = "/swagger";

@@ -55,6 +55,8 @@ namespace FFMWeb.Core.API
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+
+            // service for managing Authorization-Tokens
             .AddJwtBearer(options =>
             {
                 options.Authority = "https://ffmweb.eu.auth0.com/";
@@ -71,13 +73,19 @@ namespace FFMWeb.Core.API
                 options.UseSqlServer(Configuration.GetConnectionString("Default"));
             });
 
+            // testServices
             services.AddTransient<IValuesService, ValuesService>();
             services.AddSingleton<IShoppingListService, ShoppingListService>();
 
             var mapper = AutoMapperConfig.ConfigureAutoMapper();
             services.AddSingleton(mapper);
 
-            services.AddScoped<IUserService, UserService>();
+            // inject UsersService
+            services.AddScoped<IUsersService, UsersService>();
+            // inject PlayersService
+            services.AddScoped<IPlayersService, PlayersService>();
+            // inject TeamsService
+            services.AddScoped<ITeamsService, TeamsService>();
             services.AddHttpContextAccessor();
         }
 

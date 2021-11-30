@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace FFMWeb.Core.API.Services
 {
-    public class UserService : ServiceBase, IUserService
+    public class UsersService : ServiceBase, IUsersService
     {
-        public UserService(FootballContext context, IHttpContextAccessor contextAccessor, IMapper mapper) : base(context, contextAccessor, mapper)
+        public UsersService(FootballContext context, IHttpContextAccessor contextAccessor, IMapper mapper) : base(context, contextAccessor, mapper)
         {
         }
 

@@ -19,7 +19,7 @@ namespace FFMWeb.Core.API.Tests.Services
 {
     public class UserServiceTests : FootballContextFixture, IDisposable
     {
-        private UserService _service = new(DataTestUtils.CreateFootballContext(), new Mock<IHttpContextAccessor>().Object, AutoMapperConfig.ConfigureAutoMapper());
+        private UsersService _service = new(DataTestUtils.CreateFootballContext(), new Mock<IHttpContextAccessor>().Object, AutoMapperConfig.ConfigureAutoMapper());
 
         [Fact]
         public async Task TestCreateUserAsync()

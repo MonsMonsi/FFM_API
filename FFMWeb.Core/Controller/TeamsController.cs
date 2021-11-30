@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FFMWeb.Core.API.Exceptions;
+using FFMWeb.Core.API.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,27 +16,36 @@ namespace FFMWeb.Core.API.Controller
     [ApiController]
     public class TeamsController : ControllerBase
     {
-        private readonly string _basePath;
+        private readonly ITeamsService _teamsService;
 
-        public TeamsController()
+        public TeamsController(ITeamsService service)
         {
-            _basePath = Path.Join(Environment.CurrentDirectory, "JsonFiles", "TeamVenue");
+            _teamsService = service;
         }
 
         [HttpGet]
-        public IActionResult GetTeams([FromQuery] int league, [FromQuery] int season)
+        public async Task<IActionResult> GetTeams([FromQuery] int league, [FromQuery] int season)
         {
-            var filePath = Path.Join(_basePath, $"TeamVenue_L{league}S{season}.json");
-
-            if (!System.IO.File.Exists(filePath))
+            try
             {
-                return NotFound();
+                var teams = await _teamsService.GetTeamsAsync(league, season);
+                return Ok(teams);
             }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e);
+            }
+            //var filePath = Path.Join(_basePath, $"TeamVenue_L{league}S{season}.json");
 
-            var json = System.IO.File.ReadAllText(filePath);
-            var jsonObject = JsonSerializer.Deserialize<object>(json);
+            //if (!System.IO.File.Exists(filePath))
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(jsonObject);
+            //var json = System.IO.File.ReadAllText(filePath);
+            //var jsonObject = JsonSerializer.Deserialize<object>(json);
+
+            //return Ok(jsonObject);
         }
     }
 }

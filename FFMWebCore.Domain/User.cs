@@ -8,6 +8,6 @@ namespace FFMWebCore.Domain
         public int Id { get; set; }
         public string Identifier { get; set; }
         public string EMail { get; set; }
-        public virtual IList<UserTeam> Teams { get; set; } = new List<UserTeam>();
+        public virtual IList<UserTeam> UserTeams { get; set; } = new List<UserTeam>();
     }
 }

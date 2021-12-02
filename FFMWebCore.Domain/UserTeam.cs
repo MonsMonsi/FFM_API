@@ -14,6 +14,6 @@ namespace FFMWebCore.Domain
         public virtual  User User { get; set; }
         public int SeasonId { get; set; }
         public virtual Season Season { get; set; }
-
+        public virtual IList<UserTeamSquad> UserTeamSquads { get; set; } = new List<UserTeamSquad>();
     }
 }

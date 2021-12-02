@@ -6,7 +6,7 @@ namespace FFMWebCore.Migrator
     {
         static void Main(string[] args)
         {
-            var connectionString = "Server=localhost\\sqlexpress;Database=FFM_WEB_TEST;Trusted_Connection=True;";
+            var connectionString = "Server=localhost\\sqlexpress;Database=FFM_WEB;Trusted_Connection=True;";
             var migrator = new Migrations.Migrator(connectionString);
 
             migrator.Migrate();

@@ -15,6 +15,7 @@ namespace FFMWebCore.Domain
         public string Nationality { get; set; }
         public string Height { get; set; }
         public string Photo { get; set; }
-        public virtual Team TeamId { get; set; }
+        public bool Active { get; set; }
+        public virtual IList<UserTeamSquad> UserTeamSquads { get; set; } = new List<UserTeamSquad>();
     }
 }

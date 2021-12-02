@@ -62,30 +62,57 @@ namespace FFMWebCore.Migrations.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE Users (
-        ///	ID INT IDENTITY(1, 1) NOT NULL,
+        ///	Id INT IDENTITY(1, 1) NOT NULL,
         ///	Identifier NVARCHAR(100) NOT NULL,
         ///	EMail NVARCHAR(100) NOT NULL,
-        ///	PRIMARY KEY (ID)
+        ///	PRIMARY KEY (Id)
         ///)
         ///GO
         ///
         ///CREATE TABLE Seasons (
-        ///	ID INT IDENTITY(1, 1) NOT NULL,
-        ///	Name NVARCHAR(100) NOT NULL,
-        ///	PRIMARY KEY(ID)
+        ///	Id INT IDENTITY(1, 1) NOT NULL,
+        ///	Name NVARCHAR(50) NOT NULL,
+        ///	PRIMARY KEY(Id)
         ///)
         ///
         ///CREATE TABLE UserTeams (
-        ///	ID INT IDENTITY(1, 1) NOT NULL,
-        ///	Name NVARCHAR(100) NOT NULL,
-        ///	UserID INT NOT NULL,
+        ///	Id INT IDENTITY(1, 1) NOT NULL,
+        ///	Name NVARCHAR(50) NOT NULL,
+        ///	UserId INT NOT NULL,
         ///	SeasonId INT NOT NULL,
-        ///	PRIMARY KEY (ID),
-        ///	CONSTRAINT FK_UserTeams_UserID FOREIGN KEY (UserID) REFERENCES Users(ID) ON DELETE CASC [rest of string was truncated]&quot;;.
+        ///	PRIMARY KEY (Id),
+        ///	CONSTRAINT FK_UserTeams_UserId FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCAD [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _001_up {
             get {
                 return ResourceManager.GetString("_001_up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Players (
+        ///	Id INT IDENTITY NOT NULL,
+        ///	FirstName NVARCHAR(50) NOT NULL,
+        ///	LastName NVARCHAR(50) NOT NULL,
+        ///	BirthDate NVARCHAR(20) NOT NULL,
+        ///	BirthCountry NVARCHAR(50) NOT NULL,
+        ///	BirthPlace NVARCHAR(50) NOT NULL,
+        ///	Nationality NVARCHAR(50) NOT NULL,
+        ///	Height NVARCHAR(10) NOT NULL,
+        ///	Weight NVARCHAR(10) NOT NULL,
+        ///	Position NVARCHAR(50) NOT NULL,
+        ///	Photo NVARCHAR(100) NOT NULL,
+        ///	Active BIT NOT NULL,
+        ///	PRIMARY KEY (Id)
+        ///)
+        ///GO
+        ///
+        ///CREATE TABLE UserTeamSquads (
+        ///	Id INT IDENTITY (1, 1) NOT NULL, [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string _002_up {
+            get {
+                return ResourceManager.GetString("_002_up", resourceCulture);
             }
         }
     }

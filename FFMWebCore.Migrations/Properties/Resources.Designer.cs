@@ -91,7 +91,7 @@ namespace FFMWebCore.Migrations.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to CREATE TABLE Players (
-        ///	Id INT IDENTITY NOT NULL,
+        ///	Id INT NOT NULL,
         ///	FirstName NVARCHAR(50) NOT NULL,
         ///	LastName NVARCHAR(50) NOT NULL,
         ///	BirthDate NVARCHAR(20) NOT NULL,
@@ -102,13 +102,15 @@ namespace FFMWebCore.Migrations.Properties {
         ///	Weight NVARCHAR(10) NOT NULL,
         ///	Position NVARCHAR(50) NOT NULL,
         ///	Photo NVARCHAR(100) NOT NULL,
-        ///	Active BIT NOT NULL,
+        ///	
+        ///	TeamId INT NOT NULL,
         ///	PRIMARY KEY (Id)
         ///)
         ///GO
         ///
         ///CREATE TABLE UserTeamSquads (
-        ///	Id INT IDENTITY (1, 1) NOT NULL, [rest of string was truncated]&quot;;.
+        ///	Id INT IDENTITY (1, 1) NOT NULL,
+        ///	Use [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string _002_up {
             get {

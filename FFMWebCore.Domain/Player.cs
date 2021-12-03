@@ -12,10 +12,15 @@ namespace FFMWebCore.Domain
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BirthDate { get; set; }
+        public string BirthCountry { get; set; }
+        public string BirthPlace { get; set; }
         public string Nationality { get; set; }
         public string Height { get; set; }
+        public string Weight { get; set; }
+        public string Position { get; set; }
         public string Photo { get; set; }
-        public bool Active { get; set; }
+        // public bool Active { get; set; }
+        public int TeamId { get; set; }
         public virtual IList<UserTeamSquad> UserTeamSquads { get; set; } = new List<UserTeamSquad>();
     }
 }

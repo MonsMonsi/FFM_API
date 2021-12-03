@@ -5,4 +5,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FFMWebCore.Data.Tests\FFMWebCore.Data.Tests.csproj" />
+    <ProjectReference Include="..\FFMWebCore.Data\FFMWebCore.Data.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,12 +1,13 @@
 ﻿using FFMWebCore.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
+using System.Configuration;
 
 namespace FFMWebCore.Data
 {
     public class FootballContext : DbContext
     {
         private readonly string _connectionString;
+        private static Config Config { get; set; } = Config.GetConfig();
 
         #region DbSets
         public DbSet<User> Users { get; set; }
@@ -24,6 +25,11 @@ namespace FFMWebCore.Data
         public FootballContext(DbContextOptions<FootballContext> options) : base(options)
         {
             
+        }
+
+        public FootballContext()
+        {
+            _connectionString = Config.ConnectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -73,10 +79,15 @@ namespace FFMWebCore.Data
                 p.Property(p => p.FirstName).HasColumnName("FirstName").HasMaxLength(50).IsRequired();
                 p.Property(p => p.LastName).HasColumnName("LastName").HasMaxLength(50).IsRequired();
                 p.Property(p => p.BirthDate).HasColumnName("BirthDate").HasMaxLength(20).IsRequired();
+                p.Property(p => p.BirthCountry).HasColumnName("BirthCountry").HasMaxLength(50).IsRequired();
+                p.Property(p => p.BirthPlace).HasColumnName("BirthPlace").HasMaxLength(50).IsRequired();
                 p.Property(p => p.Nationality).HasColumnName("Nationality").HasMaxLength(50).IsRequired();
                 p.Property(p => p.Height).HasColumnName("Height").HasMaxLength(10).IsRequired();
+                p.Property(p => p.Weight).HasColumnName("Weight").HasMaxLength(10).IsRequired();
+                p.Property(p => p.Position).HasColumnName("Position").HasMaxLength(50).IsRequired();
                 p.Property(p => p.Photo).HasColumnName("Photo").HasMaxLength(100).IsRequired();
-                p.Property(p => p.Active).HasColumnName("Active").IsRequired();
+                //p.Property(p => p.Active).HasColumnName("Active").IsRequired();
+                p.Property(p => p.TeamId).HasColumnName("TeamId").IsRequired();
             });
 
             modelBuilder.Entity<Season>(s =>

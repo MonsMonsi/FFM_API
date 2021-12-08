@@ -14,9 +14,10 @@ namespace FFMWeb.Core.DataBaseUtils
     public class APIFunctions
     {
         const int API_REQUEST_LIMIT = 10;
-
-        private readonly string _basePath = @"D:\VS_Projects\Web-Projects\JsonFiles";
-        private readonly string _baseUrl = "https://v3.football.api-sports.io/";
+        const string BASE_PATH = @"D:\VS_Projects\Web-Projects\JsonFiles";
+        const string BASE_URL = "https://v3.football.api-sports.io/";
+        
+        private static FFMWebCore.Domain.Config Config = FFMWebCore.Domain.Config.GetConfig();
         private List<int> _teamIds = new ();
 
         public APIFunctions(string league, string season)
@@ -40,14 +41,14 @@ namespace FFMWeb.Core.DataBaseUtils
                 while (page <= maxPage)
                 {
                     WebClient client = new();
-                    client.Headers.Add("x-apisports-key", "a3a80245cddcf074947be5c6ac43484f");
+                    client.Headers.Add(Config.APIHeader, Config.APIKey);
 
-                    var json = JsonSerializer.Deserialize<JsonPlayers.Root>(client.DownloadString($"{_baseUrl}players?league={league}&team={id}&season={season}&page={page}"),
+                    var json = JsonSerializer.Deserialize<JsonPlayers.Root>(client.DownloadString($"{BASE_URL}players?league={league}&team={id}&season={season}&page={page}"),
                                                                                 new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                     maxPage = json.Paging.Total;
 
-                    var path = Path.Combine(_basePath, "Players", $"Players_L{league}S{season}T{id}P{page}.json");
+                    var path = Path.Combine(BASE_PATH, "Players", $"Players_L{league}S{season}T{id}P{page}.json");
 
                     File.WriteAllText(path, JsonSerializer.Serialize(json));
                     
@@ -62,14 +63,14 @@ namespace FFMWeb.Core.DataBaseUtils
         {
             var ids = new List<int>();
             var json = new JsonTeamsVenues.Root();
-            var path = Path.Join(_basePath, "TeamsVenues", $"TeamsVenues_L{league}S{season}.json");
+            var path = Path.Join(BASE_PATH, "TeamsVenues", $"TeamsVenues_L{league}S{season}.json");
 
             if (!File.Exists(path))
             {
                 WebClient client = new();
-                client.Headers.Add("x-apisports-key", "a3a80245cddcf074947be5c6ac43484f");
+                client.Headers.Add(Config.APIHeader, Config.APIKey);
 
-                json = JsonSerializer.Deserialize<JsonTeamsVenues.Root>(client.DownloadString($"{_baseUrl}teams?league={league}&season={season}"),
+                json = JsonSerializer.Deserialize<JsonTeamsVenues.Root>(client.DownloadString($"{BASE_URL}teams?league={league}&season={season}"),
                                                                             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
                 File.WriteAllText(path, JsonSerializer.Serialize(json));

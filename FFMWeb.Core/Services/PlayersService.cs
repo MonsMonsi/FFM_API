@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using FFMWeb.Core.API.Services.Interfaces;
 using FFMWebCore.Data;
+using FFMWebCore.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,23 +17,24 @@ namespace FFMWeb.Core.API.Services
     public class PlayersService: ServiceBase, IPlayersService
     {
         private readonly string _basePath;
+        private readonly FootballContext _context = new();
         public PlayersService(FootballContext context, IHttpContextAccessor contextAccessor, IMapper mapper): base(context, contextAccessor, mapper)
         {
             _basePath = Path.Join(Environment.CurrentDirectory, "JsonFiles", "Players");
         }
 
-        public async Task<object> GetPlayersAsync(int league, int season, int team, int page)
+        public async Task<Player[]> GetPlayerByIdAsync(int id)
         {
-            var filePath = Path.Combine(_basePath, $"Players_L{league}S{season}T{team}P{page}.json");
-            if (!System.IO.File.Exists(filePath))
-            {
-                return null;
-            }
+            var playerFromDb = await _context.Players.Include(p => p.Team).ThenInclude(t => t.League).Where(p=> p.Id == id).ToArrayAsync();
 
-            var json = System.IO.File.ReadAllText(filePath);
-            var jsonObject = JsonSerializer.Deserialize<object>(json);
+            return playerFromDb;
+        }
 
-            return jsonObject;
+        public async Task<Player[]> GetPlayersByLeagueAsync(int leagueId)
+        {
+            var playersFromDb =  await _context.Players.Include(p => p.Team).ThenInclude(t => t.League).Where(p => p.Team.League.Id == leagueId).ToArrayAsync();
+
+            return playersFromDb;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using FFMWeb.Core.API.Services.Interfaces;
 using FFMWebCore.Data;
+using FFMWebCore.Domain;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,24 +16,18 @@ namespace FFMWeb.Core.API.Services
     public class TeamsService : ServiceBase, ITeamsService
     {
         private readonly string _basePath;
+        private readonly FootballContext _context = new();
 
         public TeamsService(FootballContext context, IHttpContextAccessor contextAccessor, IMapper mapper) : base(context, contextAccessor, mapper)
         {
             _basePath = Path.Join(Environment.CurrentDirectory, "JsonFiles", "TeamVenue");
         }
-        public async Task<object> GetTeamsAsync(int league, int season)
+
+        public async Task<Team[]> GetAllTeamsAsync()
         {
-            var filePath = Path.Join(_basePath, $"TeamVenue_L{league}S{season}.json");
+            var teamsFromDb = await _context.Teams.Include(t => t.League).ToArrayAsync();
 
-            if (!System.IO.File.Exists(filePath))
-            {
-                return null;
-            }
-
-            var json = System.IO.File.ReadAllText(filePath);
-            var jsonObject = JsonSerializer.Deserialize<object>(json);
-
-            return jsonObject;
+            return teamsFromDb;
         }
     }
 }

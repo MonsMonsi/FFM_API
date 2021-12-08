@@ -124,4 +124,10 @@
   <data name="_002_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Migrations\002_up.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="_003_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Migrations\003_up.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="_004_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Migrations\004_up.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
 </root>

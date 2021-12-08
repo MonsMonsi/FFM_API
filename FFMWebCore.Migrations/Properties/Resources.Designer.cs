@@ -117,5 +117,41 @@ namespace FFMWebCore.Migrations.Properties {
                 return ResourceManager.GetString("_002_up", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CREATE TABLE Leagues (
+        ///	Id INT NOT NULL,
+        ///	Name NVARCHAR(50) NOT NULL,
+        ///	Country NVARCHAR(25) NOT NULL,
+        ///	Logo NVARCHAR(100) NOT NULL,
+        ///	Flag NVARCHAR(100) NOT NULL,
+        ///	PRIMARY KEY (Id),
+        ///);
+        ///GO
+        ///
+        ///CREATE TABLE Teams (
+        ///	Id INT NOT NULL,
+        ///	Name NVARCHAR(50) NOT NULL,
+        ///	Logo NVARCHAR(100) NOT NULL,
+        ///	LeagueId INT NOT NULL
+        ///	PRIMARY KEY (Id),
+        ///	CONSTRAINT FK_Teams_LeagueId FOREIGN KEY (LeagueId) REFERENCES Leagues(Id) ON DELETE CASCADE,
+        ///);.
+        /// </summary>
+        internal static string _003_up {
+            get {
+                return ResourceManager.GetString("_003_up", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ALTER TABLE Players
+        ///ADD FOREIGN KEY (TeamId) REFERENCES Teams(Id) ON DELETE CASCADE;.
+        /// </summary>
+        internal static string _004_up {
+            get {
+                return ResourceManager.GetString("_004_up", resourceCulture);
+            }
+        }
     }
 }

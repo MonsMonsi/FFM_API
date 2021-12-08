@@ -11,7 +11,9 @@ namespace FFMWebCore.Domain
     public class Config
     {
         public string ConnectionString { get; set; }
-        
+        public string APIHeader { get; set; }
+        public string APIKey { get; set; }
+        public string JsonFiles { get; set; }
         public static Config GetConfig()
         {
             var path = Path.Combine(Environment.CurrentDirectory, "Config.json");

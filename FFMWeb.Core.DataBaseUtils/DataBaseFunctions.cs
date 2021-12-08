@@ -14,11 +14,10 @@ namespace FFMWeb.Core.DataBaseUtils
 {
     public class DataBaseFunctions
     {
-        private readonly string _basePath = @"D:\VS_Projects\Web-Projects\JsonFiles";
-
-        public void WriteToDb_Players(string league)
+        private static FFMWebCore.Domain.Config Config = FFMWebCore.Domain.Config.GetConfig();
+        public void WriteToDb_Players()
         {
-            var path = Path.Combine(_basePath, "Players");
+            var path = Path.Combine(@$"{Config.JsonFiles}", "Players");
 
             var dirInfo = new DirectoryInfo(path);
 
@@ -36,16 +35,55 @@ namespace FFMWeb.Core.DataBaseUtils
                         var player = json.Response[i].Player;
                         var stats = json.Response[i].Statistics[0];
 
-                        var fromDb = context.Players.Find(player.Id);
+                        var leagueFromDb = context.Leagues.Find(stats.League.Id);
+
+                        if(leagueFromDb == null)
+                        {
+                            League leagueToDb = new()
+                            {
+                                Id = stats.League.Id ?? 99009900,
+                                Name = stats.League.Name,
+                                Country = stats.League.Country,
+                                Logo = stats.League.Logo,
+                                Flag = stats.League.Flag,
+                            };
+                            context.Leagues.Add(leagueToDb);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            Console.WriteLine("league found");
+                        }
+
+                        var teamFromDb = context.Teams.Find(stats.Team.Id);
+
+                        if(teamFromDb == null)
+                        {
+                            Team teamToDb = new()
+                            {
+                                Id = stats.Team.Id,
+                                Name = stats.Team.Name,
+                                Logo = stats.Team.Logo,
+                                LeagueId = stats.League.Id ?? 99009900,
+                            };
+                            context.Teams.Add(teamToDb);
+                            context.SaveChanges();
+                        }
+                        else
+                        {
+                            Console.WriteLine("team found");
+                        }
+
+                        var playerFromDb = context.Players.Find(player.Id);
                             
-                        if(fromDb == null)
+                        if(playerFromDb == null)
                         {
                             Player playerToDb = new()
                             {
                                 Id = player.Id,
                                 FirstName = player.Firstname,
                                 LastName = player.Lastname,
-                                BirthDate = player.Birth.Date,
+                                BirthDate = player.Birth.Date ?? "not found",
                                 BirthCountry = player.Birth.Country,
                                 BirthPlace = player.Birth.Place ?? "not found",
                                 Nationality = player.Nationality,
@@ -53,11 +91,12 @@ namespace FFMWeb.Core.DataBaseUtils
                                 Weight = player.Weight ?? "not found",
                                 Position = stats.Games.Position,
                                 Photo =  player.Photo,
-                                TeamId = stats.Team.Id
+                                TeamId = stats.Team.Id,
                             };
                             context.Players.Add(playerToDb);
                             context.SaveChanges();
-                        } else
+                        } 
+                        else
                         {
                             Console.WriteLine("player found");
                         }

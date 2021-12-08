@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FFMWebCore.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ namespace FFMWeb.Core.API.Services.Interfaces
 {
     public interface IPlayersService
     {
-        Task<object> GetPlayersAsync(int league, int season, int team, int page);
+        Task<Player[]> GetPlayersByLeagueAsync(int league);
+        Task<Player[]> GetPlayerByIdAsync(int id);
     }
 }

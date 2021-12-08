@@ -13,8 +13,10 @@ namespace FFMWebCore.Data
         public DbSet<User> Users { get; set; }
         public DbSet<UserTeam> UserTeams { get; set; }
         public DbSet<UserTeamSquad> UserTeamSquads { get; set; }
-        public DbSet<Player> Players { get; set; }
         public DbSet<Season> Seasons { get; set; }
+        public DbSet<Player> Players { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<League> Leagues { get; set; }
         #endregion
 
         public FootballContext(string connectionString) : base()
@@ -71,6 +73,14 @@ namespace FFMWebCore.Data
                 uts.HasOne(uts => uts.Player).WithMany(p => p.UserTeamSquads).OnDelete(DeleteBehavior.Cascade);
             });
 
+            modelBuilder.Entity<Season>(s =>
+            {
+                s.ToTable("Seasons");
+                s.HasKey(s => s.Id);
+                s.Property(s => s.Id).HasColumnName("Id").IsRequired();
+                s.Property(s => s.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
+            });
+
             modelBuilder.Entity<Player>(p =>
             {
                 p.ToTable("Players");
@@ -87,15 +97,28 @@ namespace FFMWebCore.Data
                 p.Property(p => p.Position).HasColumnName("Position").HasMaxLength(50).IsRequired();
                 p.Property(p => p.Photo).HasColumnName("Photo").HasMaxLength(100).IsRequired();
                 //p.Property(p => p.Active).HasColumnName("Active").IsRequired();
-                p.Property(p => p.TeamId).HasColumnName("TeamId").IsRequired();
+                p.HasOne(p => p.Team).WithMany(t => t.Players).OnDelete(DeleteBehavior.Cascade);
             });
 
-            modelBuilder.Entity<Season>(s =>
+            modelBuilder.Entity<Team>(t =>
             {
-                s.ToTable("Seasons");
-                s.HasKey(s => s.Id);
-                s.Property(s => s.Id).HasColumnName("Id").IsRequired();
-                s.Property(s => s.Name).HasColumnName("Name").HasMaxLength(100).IsRequired();
+                t.ToTable("Teams");
+                t.HasKey(t => t.Id);
+                t.Property(t => t.Id).HasColumnName("Id").IsRequired();
+                t.Property(t => t.Name).HasColumnName("Name").IsRequired();
+                t.Property(t => t.Logo).HasColumnName("Logo").IsRequired();
+                t.HasOne(t => t.League).WithMany(l => l.Teams).OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<League>(l =>
+            {
+                l.ToTable("Leagues");
+                l.HasKey(l => l.Id);
+                l.Property(l => l.Id).HasColumnName("Id").IsRequired();
+                l.Property(l => l.Name).HasColumnName("Name").IsRequired();
+                l.Property(l => l.Country).HasColumnName("Country").IsRequired();
+                l.Property(l => l.Logo).HasColumnName("Logo").IsRequired();
+                l.Property(l => l.Flag).HasColumnName("Flag").IsRequired();
             });
         }
         #endregion

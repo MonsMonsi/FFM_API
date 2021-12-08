@@ -26,11 +26,12 @@ namespace FFMWeb.Core.API.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPlayers([FromQuery] int league, [FromQuery] int season, [FromQuery] int team, [FromQuery] int page)
+        public async Task<IActionResult> GetPlayersByLeagueAsync([FromQuery] int league)
         {
             try
             {
-                var players = await _playersService.GetPlayersAsync(league, season, team, page);
+                //musste Config.json in FFMWebCore Ordner kopieren !?
+                var players = await _playersService.GetPlayersByLeagueAsync(league);
                 return Ok(players);
             }
             catch (EntityNotFoundException e)
@@ -38,18 +39,19 @@ namespace FFMWeb.Core.API.Controller
                 return NotFound(e);
             }
         }
-        //public IActionResult GetPlayers([FromQuery] int league, [FromQuery] int season, [FromQuery] int team, [FromQuery] int page)
-        //{
-        //    var filePath = Path.Combine(_basePath, $"Players_L{league}S{season}T{team}P{page}.json");
-        //    if (!System.IO.File.Exists(filePath))
-        //    {
-        //        return NotFound();
-        //    }
 
-        //    var json = System.IO.File.ReadAllText(filePath);
-        //    var jsonObject = JsonSerializer.Deserialize<object>(json);
-
-        //    return Ok(jsonObject);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPlayerByIdAsync(int id)
+        {
+            try
+            {
+                var player = await _playersService.GetPlayerByIdAsync(id);
+                return Ok(player);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(e);
+            }
+        }
     }
 }

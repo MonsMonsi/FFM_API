@@ -23,29 +23,18 @@ namespace FFMWeb.Core.API.Controller
             _teamsService = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetTeams([FromQuery] int league, [FromQuery] int season)
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllTeamsAsync()
         {
             try
             {
-                var teams = await _teamsService.GetTeamsAsync(league, season);
+                var teams = await _teamsService.GetAllTeamsAsync();
                 return Ok(teams);
             }
             catch (EntityNotFoundException e)
             {
                 return NotFound(e);
             }
-            //var filePath = Path.Join(_basePath, $"TeamVenue_L{league}S{season}.json");
-
-            //if (!System.IO.File.Exists(filePath))
-            //{
-            //    return NotFound();
-            //}
-
-            //var json = System.IO.File.ReadAllText(filePath);
-            //var jsonObject = JsonSerializer.Deserialize<object>(json);
-
-            //return Ok(jsonObject);
         }
     }
 }

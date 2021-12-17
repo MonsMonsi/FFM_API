@@ -82,6 +82,8 @@ namespace FFMWeb.Core.API
 
             // inject UsersService
             services.AddScoped<IUsersService, UsersService>();
+            // inject UserTeamsService
+            services.AddScoped<IUserTeamsService, UserTeamsService>();
             // inject PlayersService
             services.AddScoped<IPlayersService, PlayersService>();
             // inject TeamsService

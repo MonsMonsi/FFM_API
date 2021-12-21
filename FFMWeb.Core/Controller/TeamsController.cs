@@ -24,11 +24,11 @@ namespace FFMWeb.Core.API.Controller
         }
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAllTeamsAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                var teams = await _teamsService.GetAllTeamsAsync();
+                var teams = await _teamsService.GetAllAsync();
                 return Ok(teams);
             }
             catch (EntityNotFoundException e)

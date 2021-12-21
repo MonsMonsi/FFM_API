@@ -8,6 +8,6 @@ namespace FFMWeb.Core.API.Services.Interfaces
 {
     public interface ITeamsService
     {
-        Task<Team[]> GetAllTeamsAsync();
+        Task<Team[]> GetAllAsync();
     }
 }

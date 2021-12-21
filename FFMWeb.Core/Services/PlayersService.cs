@@ -23,14 +23,14 @@ namespace FFMWeb.Core.API.Services
             _basePath = Path.Join(Environment.CurrentDirectory, "JsonFiles", "Players");
         }
 
-        public async Task<Player[]> GetPlayerByIdAsync(int id)
+        public async Task<Player[]> GetByIdAsync(int id)
         {
             var playerFromDb = await _context.Players.Include(p => p.Team).ThenInclude(t => t.League).Where(p=> p.Id == id).ToArrayAsync();
 
             return playerFromDb;
         }
 
-        public async Task<Player[]> GetPlayersByLeagueAsync(int leagueId)
+        public async Task<Player[]> GetByLeagueAsync(int leagueId)
         {
             var playersFromDb =  await _context.Players.Include(p => p.Team).ThenInclude(t => t.League).Where(p => p.Team.League.Id == leagueId).ToArrayAsync();
 

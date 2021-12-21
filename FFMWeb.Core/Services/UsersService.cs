@@ -20,7 +20,7 @@ namespace FFMWeb.Core.API.Services
         {
         }
 
-        public async Task<UserModel> CreateUserAsync(CreateUserModel model)
+        public async Task<UserModel> CreateAsync(CreateUserModel model)
         {
             var user = new User
             {
@@ -34,7 +34,7 @@ namespace FFMWeb.Core.API.Services
             return Mapper.Map<UserModel>(user);
         }
 
-        public async Task<UserModel> GetUserByIdAsync(int id)
+        public async Task<UserModel> GetByIdAsync(int id)
         {
             var user = await Context.Users.FindAsync(id);
             if (user == null)
@@ -45,7 +45,7 @@ namespace FFMWeb.Core.API.Services
             return Mapper.Map<UserModel>(user);
         }
 
-        public async Task<UserModel> GetUserByIdentifierAsync(string identifier)
+        public async Task<UserModel> GetByIdentifierAsync(string identifier)
         {
             var user = await Context.Users.Where(u => u.Identifier == identifier).FirstOrDefaultAsync();
             if (user == null)

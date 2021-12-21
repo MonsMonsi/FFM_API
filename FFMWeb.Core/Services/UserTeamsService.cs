@@ -16,7 +16,7 @@ namespace FFMWeb.Core.API.Services
         { 
         }
 
-        public async void SetUserTeamAsync(string userTeamData)
+        public async void SetAsync(string userTeamData)
         {
             Console.WriteLine(userTeamData);
         }

@@ -11,87 +11,74 @@ namespace FFMWebCore.Data.Tests
 {
     public class FootballContextTests : FootballContextFixture
     {
-        [Fact]
-        public async Task TestUserCreation()
-        {
-            var user = new User
-            {
-                Identifier = "Identifier",
-                EMail = "halts@maul.de"
-            };
+        private readonly User _user;
+        private readonly Season _season;
 
-            await using (var context = new FootballContext())
+        public FootballContextTests()
+        {
+            _user = new() { Identifier = "Identifier", EMail = "test@email.com", UserTeams =  new List<UserTeam>()};
+            _season = new() { Name = "TestSeason", UserTeams = new List<UserTeam>() };
+        }
+
+        [Fact]
+        public async Task UserCreation()
+        {
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
-                context.Users.Add(user);
+                context.Users.Add(_user);
                 await context.SaveChangesAsync();
             }
 
-            await using (var context = new FootballContext())
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
-                var fromDb = await context.Users.FindAsync(user.Id);
-                Assert.Equal(user.Identifier, fromDb.Identifier);
-                Assert.Equal(user.EMail, fromDb.EMail);
+                var fromDb = await context.Users.FindAsync(_user.Id);
+                Assert.Equal(_user.Identifier, fromDb.Identifier);
+                Assert.Equal(_user.EMail, fromDb.EMail);
             }
         }
 
         [Fact]
-        public async Task TestSeasonCreation()
+        public async Task SeasonCreation()
         {
-            var season = new Season
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
-                Id = 12,
-                Name = "TestSeason",
-                UserTeams = new List<UserTeam>()
-            };
-
-            await using (var context = new FootballContext())
-            {
-                context.Seasons.Add(season);
+                context.Seasons.Add(_season);
                 await context.SaveChangesAsync();
             }
 
-            await using (var context = new FootballContext())
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
-                var fromDb = await context.Seasons.FindAsync(season.Id);
-                Assert.Equal(season.Id, fromDb.Id);
-                Assert.Equal(season.Name, fromDb.Name);
-                Assert.Equal(season.UserTeams, fromDb.UserTeams);
+                var fromDb = await context.Seasons.FindAsync(_season.Id);
+                Assert.Equal(_season.Id, fromDb.Id);
+                Assert.Equal(_season.Name, fromDb.Name);
+                Assert.Equal(_season.UserTeams, fromDb.UserTeams);
             }
         }
 
         [Fact]
-        public async Task TestUserTeamCreation()
+        public async Task UserTeamCreation()
         {
             var userTeam = new UserTeam
             {
-                Name = "TestTeam",
-                UserId = 3,
-                User = new User 
-                {
-                    Identifier = "Test123",
-                    EMail = "fresse"
-                },
-                SeasonId = 1,
-                Season = new Season
-                {
-                    Name = "TestSeason"
-                }
+               Name = "TestName",
+               UserId = 3,
+               User = _user,
+               SeasonId = 3,
+               Season = _season,
             };
 
-            await using (var context = new FootballContext())
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
                 context.UserTeams.Add(userTeam);
                 await context.SaveChangesAsync();
             }
 
-            await using (var context = new FootballContext())
+            await using (var context = DataTestUtils.CreateFootballContext())
             {
                 var fromDb = await context.UserTeams.Include(u => u.User).Include(u => u.Season).FirstOrDefaultAsync(u => u.Id == userTeam.Id);
                 Assert.Equal(userTeam.Name, fromDb.Name);
                 Assert.Equal(userTeam.UserId, fromDb.UserId);
-                // Assert.Equal(userTeam.User, fromDb.User);
                 Assert.Equal(userTeam.SeasonId, fromDb.SeasonId);
-                // Assert.Equal(userTeam.Season, fromDb.Season);
             }
         }
     }

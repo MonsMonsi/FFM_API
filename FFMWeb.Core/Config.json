@@ -1,6 +1,0 @@
-{
-  "ConnectionString": "Server=localhost\\sqlexpress;Database=FFM_WEB;Trusted_Connection=True;",
-  "APIHeader": "x-apisports-key",
-  "APIKey": "a3a80245cddcf074947be5c6ac43484f",
-  "JsonFiles": "D:\\VS_Projects\\Web-Projects\\JsonFiles\\"
-}

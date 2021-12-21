@@ -23,7 +23,7 @@ namespace FFMWeb.Core.API.Services
             _basePath = Path.Join(Environment.CurrentDirectory, "JsonFiles", "TeamVenue");
         }
 
-        public async Task<Team[]> GetAllTeamsAsync()
+        public async Task<Team[]> GetAllAsync()
         {
             var teamsFromDb = await _context.Teams.Include(t => t.League).ToArrayAsync();
 

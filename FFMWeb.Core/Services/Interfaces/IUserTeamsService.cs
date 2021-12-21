@@ -8,6 +8,6 @@ namespace FFMWeb.Core.API.Services.Interfaces
 {
     public interface IUserTeamsService
     {
-        void SetUserTeamAsync(string userTeamData);
+        void SetAsync(string userTeamData);
     }
 }

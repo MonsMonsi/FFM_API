@@ -26,12 +26,12 @@ namespace FFMWeb.Core.API.Controller
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetPlayersByLeagueAsync([FromQuery] int league)
+        public async Task<IActionResult> GetByLeagueAsync([FromQuery] int league)
         {
             try
             {
                 //musste Config.json in FFMWebCore Ordner kopieren !?
-                var players = await _playersService.GetPlayersByLeagueAsync(league);
+                var players = await _playersService.GetByLeagueAsync(league);
                 return Ok(players);
             }
             catch (EntityNotFoundException e)
@@ -41,11 +41,11 @@ namespace FFMWeb.Core.API.Controller
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetPlayerByIdAsync(int id)
+        public async Task<IActionResult> GetByIdAsync(int id)
         {
             try
             {
-                var player = await _playersService.GetPlayerByIdAsync(id);
+                var player = await _playersService.GetByIdAsync(id);
                 return Ok(player);
             }
             catch (EntityNotFoundException e)

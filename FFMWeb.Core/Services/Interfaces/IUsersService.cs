@@ -9,8 +9,8 @@ namespace FFMWeb.Core.API.Services.Interfaces
 {
     public interface IUsersService
     {
-        Task<UserModel> GetUserByIdAsync(int id);
-        Task<UserModel> GetUserByIdentifierAsync(string identifier);
-        Task<UserModel> CreateUserAsync(CreateUserModel model);
+        Task<UserModel> GetByIdAsync(int id);
+        Task<UserModel> GetByIdentifierAsync(string identifier);
+        Task<UserModel> CreateAsync(CreateUserModel model);
     }
 }

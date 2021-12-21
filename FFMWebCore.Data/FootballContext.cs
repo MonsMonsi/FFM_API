@@ -7,7 +7,6 @@ namespace FFMWebCore.Data
     public class FootballContext : DbContext
     {
         private readonly string _connectionString;
-        private static Config Config { get; set; } = Config.GetConfig();
 
         #region DbSets
         public DbSet<User> Users { get; set; }
@@ -27,11 +26,6 @@ namespace FFMWebCore.Data
         public FootballContext(DbContextOptions<FootballContext> options) : base(options)
         {
             
-        }
-
-        public FootballContext()
-        {
-            _connectionString = Config.ConnectionString;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

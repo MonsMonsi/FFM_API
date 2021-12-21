@@ -9,7 +9,7 @@ namespace FFMWeb.Core.API.Services.Interfaces
 {
     public interface IPlayersService
     {
-        Task<Player[]> GetPlayersByLeagueAsync(int league);
-        Task<Player[]> GetPlayerByIdAsync(int id);
+        Task<Player[]> GetByLeagueAsync(int league);
+        Task<Player[]> GetByIdAsync(int id);
     }
 }

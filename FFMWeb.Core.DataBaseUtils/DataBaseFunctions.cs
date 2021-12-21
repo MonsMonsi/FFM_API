@@ -28,7 +28,7 @@ namespace FFMWeb.Core.DataBaseUtils
                 var json = JsonSerializer.Deserialize<JsonPlayers.Root>(File.ReadAllText(info.ToString()),
                                                                             new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                     
-                using (var context = new FootballContext())
+                using (var context = new FootballContext(Config.ConnectionString))
                 {
                     for (var i = 0; i < json.Response.Length; i++)
                     {

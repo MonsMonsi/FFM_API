@@ -21,7 +21,7 @@ namespace FFMWebCore.Data.Tests
 
         static async Task CleanDatabase()
         {
-            using var context = new FootballContext();
+            using var context = DataTestUtils.CreateFootballContext();
             context.Users.RemoveRange(context.Users);
             context.Seasons.RemoveRange(context.Seasons);
             await context.SaveChangesAsync();

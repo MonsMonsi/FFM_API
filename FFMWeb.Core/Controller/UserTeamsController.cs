@@ -23,11 +23,11 @@ namespace FFMWeb.Core.API.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> SetUserTeamAsync([FromBody] string userTeamData)
+        public async Task<IActionResult> SetAsync([FromBody] string userTeamData)
         {
             try
             {
-                _userTeamsService.SetUserTeamAsync(userTeamData);
+                _userTeamsService.SetAsync(userTeamData);
                 return Ok();
             }
             catch (EntityNotFoundException e)

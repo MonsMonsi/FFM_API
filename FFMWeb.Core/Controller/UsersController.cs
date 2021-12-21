@@ -27,7 +27,7 @@ namespace FFMWeb.Core.API.Controller
         {
             try
             {
-                var user = await _userService.GetUserByIdAsync(id);
+                var user = await _userService.GetByIdAsync(id);
                 return Ok(user);
             }
             catch (EntityNotFoundException e)
@@ -41,7 +41,7 @@ namespace FFMWeb.Core.API.Controller
         {
             try
             {
-                var user = await _userService.GetUserByIdentifierAsync(identifier);
+                var user = await _userService.GetByIdentifierAsync(identifier);
                 return Ok(user);
             }
             catch (EntityNotFoundException e)
